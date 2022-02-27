@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db
     ports:
-      - "3308:3306"
+      - "3306:3306"
     expose:
       # Opens port 3306 on the container
-      - '3308'
+      - '3306'
