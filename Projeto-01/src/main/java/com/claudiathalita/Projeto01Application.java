@@ -1,5 +1,6 @@
 package com.claudiathalita;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
@@ -13,6 +14,7 @@ import com.claudiathalita.domain.Cidade;
 import com.claudiathalita.domain.Cliente;
 import com.claudiathalita.domain.Endereco;
 import com.claudiathalita.domain.Estado;
+import com.claudiathalita.domain.ItemPedido;
 import com.claudiathalita.domain.Pagamento;
 import com.claudiathalita.domain.PagamentoComBoleto;
 import com.claudiathalita.domain.PagamentoComCartao;
@@ -25,6 +27,7 @@ import com.claudiathalita.repositories.CidadeRepository;
 import com.claudiathalita.repositories.ClienteRepository;
 import com.claudiathalita.repositories.EnderecoRepository;
 import com.claudiathalita.repositories.EstadoRepository;
+import com.claudiathalita.repositories.ItemPedidoRepository;
 import com.claudiathalita.repositories.PagamentoRepository;
 import com.claudiathalita.repositories.PedidoRepository;
 import com.claudiathalita.repositories.ProdutoRepository;
@@ -55,6 +58,9 @@ public class Projeto01Application implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Projeto01Application.class, args);
@@ -120,6 +126,19 @@ public class Projeto01Application implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 
 }
