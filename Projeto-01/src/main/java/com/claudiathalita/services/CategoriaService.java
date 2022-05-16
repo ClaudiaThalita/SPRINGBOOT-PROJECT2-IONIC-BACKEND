@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.claudiathalita.domain.Categoria;
+import com.claudiathalita.dto.CategoriaDTO;
 import com.claudiathalita.repositories.CategoriaRepository;
 import com.claudiathalita.services.exception.DataIntegrityException;
 import com.claudiathalita.services.exception.ObjectNotFoundException;
@@ -57,4 +58,8 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 
+	public Categoria fromDtO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
+		
+	}
 }
